@@ -1,6 +1,6 @@
 from fastapi import FastAPI, HTTPException
 from storage import TenantStorage
-from prometheus_client import Gauge, generate_latest, REGISTRY
+from prometheus_client import Gauge, generate_latest
 from fastapi.responses import Response
 
 app = FastAPI(title="Tenant Management API")
