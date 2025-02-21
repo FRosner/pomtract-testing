@@ -1,8 +1,14 @@
 from fastapi import FastAPI, HTTPException
 from storage import TenantStorage
+from prometheus_client import Gauge, generate_latest, REGISTRY
+from fastapi.responses import Response
 
 app = FastAPI(title="Tenant Management API")
 tenant_storage = TenantStorage()
+
+TENANT_COUNT = Gauge('tenant_count', 'Number of tenants in the system',
+                    labelnames=[])
+TENANT_COUNT.set_function(lambda: len(tenant_storage.tenants))
 
 @app.post("/tenants/{tenant_id}")
 async def create_tenant(tenant_id: str):
@@ -19,6 +25,10 @@ async def delete_tenant(tenant_id: str):
     if not tenant_storage.delete_tenant(tenant_id):
         raise HTTPException(status_code=404, detail="Tenant not found")
     return {"status": "success"}
+
+@app.get("/metrics")
+async def metrics():
+    return Response(generate_latest(), media_type="text/plain")
 
 if __name__ == "__main__":
     import uvicorn
