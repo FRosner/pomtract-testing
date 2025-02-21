@@ -8,3 +8,9 @@ A simple API service for managing tenants.
 ```bash
 uv run main.py
 ```
+
+## Run Tests
+
+```bash
+uv run pytest
+```
