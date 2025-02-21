@@ -1,26 +1,25 @@
 import { useState, useEffect } from 'react'
 import './App.css'
+import { TenantService } from './services/TenantService'
 
 interface Tenant {
   id: string
-  // Add other tenant properties if they exist in your API response
 }
+
+const tenantService = new TenantService(''); // Empty base URL for same-origin requests
 
 function App() {
   const [tenants, setTenants] = useState<Tenant[]>([])
   const [newTenantId, setNewTenantId] = useState('')
   const [error, setError] = useState('')
 
-  // Fetch tenants on component mount
   useEffect(() => {
     fetchTenants()
   }, [])
 
   const fetchTenants = async () => {
     try {
-      const response = await fetch('/tenants')
-      if (!response.ok) throw new Error('Failed to fetch tenants')
-      const data = await response.json()
+      const data = await tenantService.listTenants()
       setTenants(data)
       setError('')
     } catch (err) {
@@ -36,17 +35,9 @@ function App() {
     }
 
     try {
-      const response = await fetch(`/tenants/${newTenantId}`, {
-        method: 'POST',
-      })
-
-      if (!response.ok) {
-        const data = await response.json()
-        throw new Error(data.detail || 'Failed to create tenant')
-      }
-
-      await fetchTenants() // Refresh the list
-      setNewTenantId('') // Clear the input
+      await tenantService.createTenant(newTenantId)
+      await fetchTenants()
+      setNewTenantId('')
       setError('')
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Failed to create tenant')
@@ -56,16 +47,8 @@ function App() {
 
   const deleteTenant = async (tenantId: string) => {
     try {
-      const response = await fetch(`/tenants/${tenantId}`, {
-        method: 'DELETE',
-      })
-
-      if (!response.ok) {
-        const data = await response.json()
-        throw new Error(data.detail || 'Failed to delete tenant')
-      }
-
-      await fetchTenants() // Refresh the list
+      await tenantService.deleteTenant(tenantId)
+      await fetchTenants()
       setError('')
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Failed to delete tenant')
@@ -77,7 +60,6 @@ function App() {
     <div className="container">
       <h1>Tenant Management</h1>
       
-      {/* Add Tenant Form */}
       <div className="add-tenant-form">
         <input
           type="text"
@@ -88,10 +70,8 @@ function App() {
         <button onClick={addTenant}>Add Tenant</button>
       </div>
 
-      {/* Error Display */}
       {error && <div className="error-message">{error}</div>}
 
-      {/* Tenants List */}
       <div className="tenants-list">
         <h2>Tenants</h2>
         {tenants.length === 0 ? (

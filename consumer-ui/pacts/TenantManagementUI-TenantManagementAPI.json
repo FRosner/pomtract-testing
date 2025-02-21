@@ -1,0 +1,127 @@
+{
+  "consumer": {
+    "name": "TenantManagementUI"
+  },
+  "interactions": [
+    {
+      "description": "a request for all tenants",
+      "pending": false,
+      "providerStates": [
+        {
+          "name": "a tenant exists",
+          "params": {
+            "tenantId": "tenant-1"
+          }
+        }
+      ],
+      "request": {
+        "headers": {
+          "Accept": [
+            "application/json"
+          ]
+        },
+        "method": "GET",
+        "path": "/tenants"
+      },
+      "response": {
+        "body": {
+          "content": [
+            {
+              "id": "tenant-1"
+            }
+          ],
+          "contentType": "application/json",
+          "encoded": false
+        },
+        "headers": {
+          "Content-Type": [
+            "application/json"
+          ]
+        },
+        "matchingRules": {
+          "body": {
+            "$": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type",
+                  "min": 1
+                }
+              ]
+            }
+          },
+          "header": {},
+          "status": {}
+        },
+        "status": 200
+      },
+      "type": "Synchronous/HTTP"
+    },
+    {
+      "description": "a request for all tenants",
+      "pending": false,
+      "providerStates": [
+        {
+          "name": "tenant with ID tenant-1 exists"
+        }
+      ],
+      "request": {
+        "headers": {
+          "Accept": [
+            "application/json"
+          ]
+        },
+        "method": "GET",
+        "path": "/tenants"
+      },
+      "response": {
+        "body": {
+          "content": [
+            {
+              "id": "tenant-1"
+            }
+          ],
+          "contentType": "application/json",
+          "encoded": false
+        },
+        "headers": {
+          "Content-Type": [
+            "application/json"
+          ]
+        },
+        "matchingRules": {
+          "body": {
+            "$": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type",
+                  "min": 1
+                }
+              ]
+            }
+          },
+          "header": {},
+          "status": {}
+        },
+        "status": 200
+      },
+      "type": "Synchronous/HTTP"
+    }
+  ],
+  "metadata": {
+    "pact-js": {
+      "version": "14.0.0"
+    },
+    "pactRust": {
+      "ffi": "0.4.22",
+      "models": "1.2.3"
+    },
+    "pactSpecification": {
+      "version": "4.0"
+    }
+  },
+  "provider": {
+    "name": "TenantManagementAPI"
+  }
+}
