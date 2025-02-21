@@ -1,0 +1,14 @@
+### Create first tenant
+POST http://localhost:8000/tenants/tenant1
+
+### Create second tenant
+POST http://localhost:8000/tenants/tenant2
+
+### List all tenants
+GET http://localhost:8000/tenants
+
+### Delete first tenant
+DELETE http://localhost:8000/tenants/tenant1
+
+### List all tenants again to verify deletion
+GET http://localhost:8000/tenants
