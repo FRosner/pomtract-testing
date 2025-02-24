@@ -2,15 +2,18 @@
 
 ## Description
 
-Example how to use consumer driven contract testing to test Prometheus metrics.
+Example how to use consumer driven contract testing, including Prometheus metrics.
 
 ## Usage
 
 ```bash
-# Demo
+# Demo with real back-end
 ./demo.sh
 
-# Pact workflow
+# Demo with stubbed back-end
+./demo.sh --stub
+
+# Pact workflow with pact-broker
 ./pact.sh
 ```
 

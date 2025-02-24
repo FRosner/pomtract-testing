@@ -20,7 +20,7 @@ Then, run the stub server.
 ```bash
 docker run -it -p 8000:8000 \
   -v "$(pwd)/pacts/:/app/pacts" \
-  pactfoundation/pact-stub-server -p 8000 pacts
+  pactfoundation/pact-stub-server -p 8000 -d pacts
 ```
 
 Then start the UI (in another terminal, unless you are running the container in detached mode).
