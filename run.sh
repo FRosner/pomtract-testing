@@ -60,11 +60,15 @@ while [ $retries -lt $MAX_RETRIES ]; do
     sleep $RETRY_INTERVAL
 done
 
-# Run consumer tests
 echo "Running consumer-ui tests..."
 cd consumer-ui
-if ! npm test; then
+if ! npm run test; then
     echo "Error: consumer-ui tests failed"
+    exit 1
+fi
+echo "Publishing consumer-ui pacts..."
+if ! npm run test:publish; then
+    echo "Error: Failed to publish consumer-ui pacts"
     exit 1
 fi
 cd ..

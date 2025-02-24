@@ -6,7 +6,8 @@
   "scripts": {
     "dev": "vite",
     "build": "tsc -b && vite build",
-    "test": "jest",
+    "test": "rm pacts/* && jest",
+    "test:publish": "./node_modules/.bin/pact-broker publish pacts --consumer-app-version=\"$(npx absolute-version)\" --auto-detect-version-properties --broker-base-url=http://localhost:9292",
     "lint": "eslint .",
     "preview": "vite preview"
   },
@@ -17,6 +18,7 @@
   "devDependencies": {
     "@eslint/js": "^9.19.0",
     "@pact-foundation/pact": "^14.0.0",
+    "@pact-foundation/pact-cli": "^16.0.4",
     "@types/jest": "^29.5.14",
     "@types/react": "^19.0.8",
     "@types/react-dom": "^19.0.3",
