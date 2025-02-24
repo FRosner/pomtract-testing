@@ -14,6 +14,7 @@ if ! uv --version > /dev/null 2>&1; then
 fi
 
 PACT_BROKER_URL="http://localhost:9292"
+PACT_PUBLISH_VERIFICATION_RESULTS="TRUE"
 MAX_RETRIES=30
 RETRY_INTERVAL=2
 

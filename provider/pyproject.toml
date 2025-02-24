@@ -1,5 +1,5 @@
 [project]
-name = "producer"
+name = "provider"
 version = "0.1.0"
 description = "Add your description here"
 readme = "README.md"
@@ -18,5 +18,7 @@ python_files = ["test_*.py"]
 
 [project.optional-dependencies]
 dev = [
+    "gitpython>=3.1.44",
     "pytest>=7.0.0",
+    "tomli>=2.2.1",
 ]
